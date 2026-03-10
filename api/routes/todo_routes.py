@@ -6,6 +6,9 @@ from api.models.todo_model import todo_model
 todo_model = todo_model(todo_ns)
 
 @todo_ns.route('/')
+@todo_ns.doc(params={
+    "X-Access-Token": { "description": "JWT auth token","in": "headers", "required": True}
+})
 class Todos(Resource):
     @todo_ns.doc(description="Get all todos",
                  responses={
@@ -15,18 +18,12 @@ class Todos(Resource):
             )
     def get(self):
         pass
-    
-    @todo_ns.doc(description="Get one todo",
-                responses={
-                200: 'User logged',
-                400: "Incorrect user or password"
-            }
-        )
-    
+
     @todo_ns.doc(description="Add a new todo",
                  params={
                      "title": "Todo title",
-                     "description": "Todo description"
+                     "description": "Todo description",
+                     
                  },
                  responses={
                     200: 'User logged',
@@ -38,6 +35,9 @@ class Todos(Resource):
         pass
 
 @todo_ns.route('/<string:todo_id>')
+@todo_ns.doc(params={
+    "X-Access-Token": { "description": "JWT auth token","in": "headers", "required": True}
+})
 class Todo(Resource):
     @todo_ns.doc(description="Get one todo",
                  responses={
@@ -45,6 +45,7 @@ class Todo(Resource):
                     400: "Todo doesn't exists"
                 }
             )
+    @todo_ns.header("X-Access-Token", "JWT for a logged user")
     def get(self, todo_id):
         return { "Info": todo_id}
 

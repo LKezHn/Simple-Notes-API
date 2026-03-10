@@ -19,7 +19,7 @@ class Login(Resource):
         )
     @auth_ns.expect(login_model)
     def post(self):
-        pass
+        return {"status": 200, "token": "JSON Web Token"}
     
 @auth_ns.route('/register')
 class Register(Resource):
@@ -36,5 +36,5 @@ class Register(Resource):
         )
     @auth_ns.expect(register_model)
     def post(self):
-        pass
+            return {"status": 200, "token": "JSON Web Token"}
     

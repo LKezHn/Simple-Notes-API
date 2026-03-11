@@ -27,7 +27,7 @@ def login_user(username, password):
     if not user:
         return None, "Invalid credentials"
 
-    if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
+    if bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
         return "User logged", None
     
     return None, "Invalid credentials"

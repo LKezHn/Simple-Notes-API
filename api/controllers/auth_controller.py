@@ -18,3 +18,16 @@ def register_user(username, email, password):
     
     except DuplicateKeyError:
         return None, "username or email already exists"
+
+
+def login_user(username, password):
+
+    user = mongo.db.users.find_one({"username": username})
+
+    if not user:
+        return None, "Invalid credentials"
+
+    if bcrypt.checkpw(password.encode("utf-8"), user["password"]):
+        return "User logged", None
+    
+    return None, "Invalid credentials"

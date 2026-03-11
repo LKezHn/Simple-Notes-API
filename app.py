@@ -1,6 +1,8 @@
 from flask import Flask, request 
 from flask_restx import Api
 
+from flask_jwt_extended import JWTManager
+
 from config import Config
 from db import mongo, create_indexes
 
@@ -13,6 +15,8 @@ mongo.init_app(app)
 
 with app.app_context():
     create_indexes()
+
+jwt = JWTManager(app)
 
 api = Api(app, 
           version='1.0', 

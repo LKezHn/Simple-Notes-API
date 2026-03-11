@@ -2,10 +2,15 @@ from flask import Flask, request
 from flask_restx import Api
 
 from config import Config
+from db import mongo
 
 from api.namespaces.namespaces import auth_ns, todo_ns
 
 app = Flask(__name__)
+app.config.from_object(Config)
+
+mongo.init_app(app)
+
 api = Api(app, 
           version='1.0', 
           title="Simple Notes API", 

@@ -1,6 +1,9 @@
 import bcrypt
 from db import mongo
+
 from pymongo.errors import DuplicateKeyError
+
+from flask_jwt_extended import create_access_token
 
 def register_user(username, email, password):
     
@@ -8,13 +11,15 @@ def register_user(username, email, password):
     encrypted_pass = bcrypt.hashpw( password.encode("utf-8"),bcrypt.gensalt()).decode("utf-8")
 
     try:
-        mongo.db.users.insert_one({
+        user = mongo.db.users.insert_one({
             "username": username,
             "email": email,
             "password": encrypted_pass
         })
 
-        return "User registered", None
+        token = create_access_token(identity=str(user["_id"]))
+
+        return token, None
     
     except DuplicateKeyError:
         return None, "username or email already exists"
@@ -28,6 +33,7 @@ def login_user(username, password):
         return None, "Invalid credentials"
 
     if bcrypt.checkpw(password.encode("utf-8"), user["password"].encode("utf-8")):
-        return "User logged", None
+        token = create_access_token(identity=str(user["_id"]))
+        return token, None
     
     return None, "Invalid credentials"

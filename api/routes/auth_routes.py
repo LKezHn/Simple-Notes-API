@@ -14,11 +14,11 @@ class Login(Resource):
     def post(self):
         username, password = request.json.values()
 
-        response, error = login_user(username, password)
+        token, error = login_user(username, password)
         if error != None:
             return { "status": 400, "message": error}
 
-        return { "status": 200, "message": response}
+        return { "status": 200, "message": "User logged", "auth_token": token}
         
 @auth_ns.route('/register')
 class Register(Resource):
@@ -27,9 +27,9 @@ class Register(Resource):
     def post(self):
         username, email, password = request.json.values()
 
-        response, error = register_user(username, email, password)
+        token, error = register_user(username, email, password)
     
         if error != None:
             return { "status": 400, "message": error}
 
-        return { "status": 200, "message": response}
+        return { "status": 200, "message": "User registered", "auth_token": token}

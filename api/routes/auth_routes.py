@@ -12,8 +12,7 @@ class Login(Resource):
     @auth_ns.doc(description="Login endpoint", responses={ 200: 'User logged', 400: "Incorrect user or password"})
     @auth_ns.expect(login_model)
     def post(self):
-        username = request.json["username"]
-        password = request.json["password"]
+        username, password = request.json.values()
 
         response, error = login_user(username, password)
         if error != None:
@@ -26,9 +25,7 @@ class Register(Resource):
     @auth_ns.doc(description="Register endpoint", responses={ 200: 'User logged', 400: "Incorrect user or password"})
     @auth_ns.expect(register_model)
     def post(self):
-        username = request.json["username"]
-        email = request.json["email"]
-        password = request.json["password"]
+        username, email, password = request.json.values()
 
         response, error = register_user(username, email, password)
     

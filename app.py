@@ -18,14 +18,10 @@ with app.app_context():
 
 jwt = JWTManager(app)
 
-authorizations = { "Bearer": { "type": "apiKey", "in": "header", "name": "Authorization"}}
-
 api = Api(app, 
           version='1.0', 
           title="Simple Notes API", 
-          description="An example of a simple API with CRUD methods and auth",
-          authorizations=authorizations,
-          security="Bearer"
+          description="An example of a simple API with CRUD methods and auth"
         )
 
 api.add_namespace(auth_ns)

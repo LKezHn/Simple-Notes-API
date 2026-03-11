@@ -3,12 +3,12 @@ from flask_restx import Resource
 from api.namespaces.namespaces import todo_ns
 from api.models.todo_model import todo_model
 
+from api.controllers.todo_controller import get_todos
+
 todo_model = todo_model(todo_ns)
 
 @todo_ns.route('/')
-@todo_ns.doc(params={
-    "X-Access-Token": { "description": "JWT auth token","in": "headers", "required": True}
-})
+#@todo_ns.doc(params={"X-Access-Token": { "description": "JWT auth token","in": "headers", "required": True}})
 class Todos(Resource):
     @todo_ns.doc(description="Get all todos",
                  responses={
@@ -17,7 +17,9 @@ class Todos(Resource):
                 }
             )
     def get(self):
-        pass
+        todos = get_todos()
+
+        return {"status": 200, "todos": todos}
 
     @todo_ns.doc(description="Add a new todo",
                  params={

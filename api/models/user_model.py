@@ -9,7 +9,7 @@ def auth_models(api):
 
     register_model = api.model("Register", {
         "username": fields.String(required=True, description = "Username"),
-        "email": fields.String(required=True, description = "User's email"),
+        "email": fields.String(required=True, description = "User's email", format="email"),
         'password': fields.String(required=True, description = "User's password")
     })
 

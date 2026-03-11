@@ -1,6 +1,8 @@
 from flask import Flask, request 
 from flask_restx import Api
 
+from config import Config
+
 from api.namespaces.namespaces import auth_ns, todo_ns
 
 app = Flask(__name__)

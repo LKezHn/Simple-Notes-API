@@ -29,25 +29,22 @@ Incluye:
 ```
 flask-api-demo/
 │
-├── app.py              # Archivo principal
-├── config.py           # Configuración y carga de .env
-├── db.py               # Conexión a MongoDB
-├── requirements.txt    # Dependencias
-├── api/                # Carpeta principal de la API
-|   ├── controllers/
+├── app.py                            # Archivo principal
+├── config.py                         # Configuración y carga de .env
+├── db.py                             # Conexión a MongoDB
+├── requirements.txt                  # Dependencias
+├── api/                              # Carpeta principal de la API
+|   ├── controllers/                  # Carpeta de controllers
 |   |   ├── auth_controller.py
 |   |   ├── todo_controller.py
-|   ├── models/
+|   ├── models/                       # Carpeta de modelos para Swagger
 |   |   ├── todo_model.py
 |   |   ├── user_model.py
-|   ├── namespaces/
+|   ├── namespaces/                   # Carpeta de namespaces
 |   |   ├── namespaces.py
-|   ├── routes/
+|   ├── routes/                       # Carpeta de rutas
 |   |   ├── auth_routes.py
 |   |   ├── todo_routes.py
-│   ├── todo_routes.py
-│   ├── users_routes.py
-│   └── auth_routes.py
 ```
 
 ---

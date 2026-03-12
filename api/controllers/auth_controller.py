@@ -1,6 +1,7 @@
 import bcrypt
 from db import mongo
 
+from bson import ObjectId
 from pymongo.errors import DuplicateKeyError
 
 from flask_jwt_extended import create_access_token
@@ -37,3 +38,10 @@ def login_user(username, password):
         return token, None
     
     return None, "Invalid credentials"
+
+def get_my_profile(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)}, {"password": False})
+
+    user["_id"] = str(user["_id"])
+
+    return user
